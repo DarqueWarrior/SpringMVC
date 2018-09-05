@@ -1,0 +1,40 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: springmvc-qa
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: springmvc-qa
+    spec:
+      containers:
+      - name: springmvc-qa
+        image: mydockerimages-microsoft.azurecr.io/springmvc:latest
+        env:
+        - name: APPINSIGHTS_INSTRUMENTATIONKEY
+          value: "12921b22-9ceb-413f-8323-70ed09fbd072"
+        - name: PORT
+          value: "80"
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: azurecontainerreg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springmvc-qa
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: springmvc-qa
