@@ -24,7 +24,7 @@ public class HomeControllerTest {
 	public void aboutTest() throws IOException {
       // Arrange
       HomeController target = new HomeController();
-      String expectedTitle = "About";
+      String expectedTitle = "About!";
       String expectedMessage = "Your application description page.";
 
       // Act
