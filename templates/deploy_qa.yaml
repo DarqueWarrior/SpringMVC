@@ -19,7 +19,7 @@ spec:
       - name: springmvc-qa
         image: mydockerimages-microsoft.azurecr.io/springmvc:latest
         env:
-        - name: APPINSIGHTS_INSTRUMENTATIONKEY
+        - name: APPLICATION_INSIGHTS_IKEY
           value: "e004d8c2-eb15-421f-aa1a-a83bdd5fc17d"
         - name: PORT
           value: "80"
