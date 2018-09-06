@@ -9,7 +9,6 @@ queue:
   demands: 
 
   - npm
-
   - maven
 
 
