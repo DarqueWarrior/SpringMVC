@@ -19,9 +19,7 @@ steps:
 - task: Npm@0
 
   displayName: 'Install bower'
-
   inputs:
-
     arguments: 'bower --allow-root'
 
 
