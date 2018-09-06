@@ -1,0 +1,127 @@
+resources:
+
+- repo: self
+
+queue:
+
+  name: Hosted Linux Preview
+
+  demands: 
+
+  - npm
+
+  - maven
+
+
+
+steps:
+
+- task: Npm@0
+
+  displayName: 'Install bower'
+
+  inputs:
+
+    arguments: 'bower --allow-root'
+
+
+
+
+
+- task: CmdLine@1
+
+  displayName: 'Run bower'
+
+  inputs:
+
+    filename: bower
+
+
+
+    arguments: 'install --allow-root'
+
+
+
+
+
+- task: Maven@1
+
+  displayName: 'Maven pom.xml'
+
+  inputs:
+
+    codeCoverageToolOption: JaCoCo
+
+
+
+
+
+- task: Docker@0
+
+  displayName: 'Build an image'
+
+  inputs:
+
+    dockerFile: Dockerfile
+
+
+
+    imageName: 'mydockerimages-microsoft.azurecr.io/springmvc:$(Build.BuildId)'
+
+
+
+
+
+- task: Docker@0
+
+  displayName: 'Push an image'
+
+  inputs:
+
+    containerregistrytype: 'Container Registry'
+
+
+
+    dockerRegistryConnection: 'Docker Registry'
+
+
+
+    action: 'Push an image'
+
+
+
+    imageName: 'mydockerimages-microsoft.azurecr.io/springmvc:$(Build.BuildId)'
+
+
+
+
+
+- task: CopyFiles@2
+
+  displayName: 'Copy Files'
+
+  inputs:
+
+    Contents: 'templates/*.*'
+
+
+
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+
+
+
+
+- task: PublishBuildArtifacts@1
+
+  displayName: 'Publish Artifact: drop'
+
+  inputs:
+
+    PathtoPublish: '$(build.artifactstagingdirectory)/templates'
+
+
+
+
+
+
