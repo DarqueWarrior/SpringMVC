@@ -20,7 +20,7 @@ spec:
         image: mydockerimages-microsoft.azurecr.io/springmvc:latest
         env:
         - name: APPINSIGHTS_INSTRUMENTATIONKEY
-          value: "b6a4c40e-f814-4e38-88e8-c40570859834"
+          value: "b2293975-eb48-4d62-88d4-8da42589ae96"
         - name: PORT
           value: "80"
         ports:
